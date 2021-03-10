@@ -1,6 +1,7 @@
 # MeMeal App
 
 ## Add description
+What it does, some technology, how to use it
 
 
 ## Team Members
