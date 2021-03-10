@@ -1,0 +1,22 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/f4021c5793.js" crossorigin="anonymous"></script>
+<script type="x-tmpl-mustache" id="recipeInfo-template">
+  <ul>
+    <li class="recipeI">Ingredients:</li>
+    {{#ingredients}}
+    <li style = "text-transform: capitalize;">{{.}}</li>
+    {{/ingredients}}
+    <li class="recipeI">Instructions:</li>
+    <li>{{instructions}}</li>
+    <li class="recipeI">Price per serving:</li>
+    <li>{{price}}</li>
+    <li class="recipeI">Serving size:</li>
+    <li>{{servings}}</li>
+  </ul>
+  <section></section>
+</script>
+

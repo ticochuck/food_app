@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <%- include('../partials/head') %>
+
+    <title>Profiles</title>
+</head>
+<body>
+    
+    <%- include('../partials/header') %>
+    
+    
+    <main id="profileMain">
+      
+      <h1><%= profile.username %>'s Profile Information</h1>
+      <ul>
+        <li class="card">
+          
+          <h2>
+            Daily Calories: <%= profile.calories %>
+          </h2>
+          <h2>
+            <%= profile.username %>'s Allergies: <%= profile.allergies %>
+          </h2>
+        </li>
+        
+        <button class="deleteProfile" type="submit">Delete Profile</button>
+        <form class="deleteProfileForm" action="/delete/<%= profile.username %>?_method=delete" method="POST" id="">
+            <button type="submit">Confirm Delete</button>
+            <button class="cancel-delete" type="submit">Cancel</button>
+        </form>
+
+            <form action="/recipe-search" method="GET" id="">
+                <input type="text" name="searchWord" placeholder="Enter Meal Name" required>
+                <input type="number" name="maxCalories" placeholder="Max Calories Per Meal" required min="0">
+                <input type="hidden" name="allergy" value="<%= profile.allergies %>">
+                <input type="hidden" name="calories" value="<%= profile.calories %>">
+                <input type="hidden" name="username" value="<%= profile.username %>">
+                <button type="submit">Search Recipes</button>
+            </form>
+        </ul>
+
+        <ul id="savedRecipesUl">
+          <% recipes.forEach (recipe => { %>
+            <li id="profileRecipes">
+                <img class="recipeImage" src="<%= recipe.img_url %>"/>
+                <h3 class="recipeName">Recipe Name</h3>
+                <p><%= recipe.recipe_name %></p>
+                <h3 class="recipeI">Ingredients</h3>
+                <ul>
+                  <% recipe.ingredients.forEach (ingredient => { %>
+                    <li style = "text-transform: capitalize;"><%= ingredient %></li>
+                  <% }) %>
+                </ul>
+
+                <h3 class="recipeI">Instructions</h3>
+                <p><%= recipe.instructions %></p>
+                
+                <button class="updateRecipe">Update Recipe</button>
+                
+                <form class="updateRecipeForm" method="post" action="/update-recipe/<%= recipe.sql_id %>?_method=put">
+                    <input type="hidden" name="username" value="<%= profile.username %>">
+                    <input type="hidden" name="calories" value="<%= profile.calories %>">
+                    <input type="hidden" name="allergies" value="<%= profile.allergies %>">
+                    
+                    <label>Recipe Name: 
+                        <input class="update" name="recipe_name" value="<%= recipe.recipe_name %>">
+                    </label>
+                    
+                    <label>Ingredients: 
+                        <input class="update" name="ingredients" value="<%= recipe.ingredients %>">
+                    </label>
+                    
+                    <label>Instructions: 
+                        <input class="update" name="instructions" value="<%= recipe.instructions %>">
+                    </label>
+                    
+                    <button type="submit">Save Changes</button>
+                    <button type="button" class="cancel-update">Cancel</button>
+                </form>
+
+                <form method="post" action="/delete-recipe/<%= recipe.recipe_id %>?_method=delete">
+                    <input type="hidden" name="username" value="<%= profile.username %>">
+                    <input type="hidden" name="calories" value="<%= profile.calories %>">
+                    <input type="hidden" name="allergies" value="<%= profile.allergies %>">
+                    <button id="deleteRecipe" type="submit">Delete this recipe</button>
+                </form>
+            </li>
+            
+        <% }) %>
+        </ul>
+
+    </main>
+    <%- include('../partials/footer') %>
+    <%- include('../partials/script') %>
+</body>
+</html>
